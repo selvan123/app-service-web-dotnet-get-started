@@ -24,6 +24,7 @@ jobs:
 
     - name: Call GH API
       run: |
+          write-host "Artifact Id : " '${{ inputs.artifactid }}'
           $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
           $headers.Add("Accept", "application/vnd.github+json")
           $headers.Add("X-GitHub-Api-Version", "2022-11-28")
