@@ -38,8 +38,8 @@ jobs:
               {
                   Write-Host $res.name
                   Write-Host $res.archive_download_url
-                  $ext = ".zip"
-                  $filename = ${{ inputs.artifactid }} + $ext
+                  #$ext = ".zip"
+                  $filename = ${{ inputs.artifactid }} 
                   Write-Host $filename
                   $response = Invoke-WebRequest $res.archive_download_url -Method 'GET' -Headers $headers -OutFile 'C:\Users\61058195\Downloads\$filename'
                   Get-ChildItem
