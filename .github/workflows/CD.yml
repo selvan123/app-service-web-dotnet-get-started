@@ -17,7 +17,7 @@ on:
 jobs:
 
   deploy:
-    runs-on: windows-latest
+    runs-on: linux-latest
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
