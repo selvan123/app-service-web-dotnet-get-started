@@ -46,4 +46,13 @@ jobs:
               } 
           }     
 
+    - name: Deploy to Azure Web App
+      id: deploy-to-webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'SCDDemo'
+        slot-name: 'Production'
+        publish-profile: ${{ secrets.SCDDemoAZUREAPPSERVICE_PUBLISHPROFILE }}
+        package: '${{ inputs.artifactid }}.zip'
+
    
