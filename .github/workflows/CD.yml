@@ -25,6 +25,12 @@ jobs:
       id-token: write #This is required for requesting the JWT
 
     steps:
+
+    - name: Call GH API
+      run: |
+         res = $(curl --location 'https://api.github.com/repos/selvan123/app-service-web-dotnet-get-started/actions/artifacts')
+         echo $res
+         
     - name: 'Download artifact'
       uses: actions/github-script@v6
       with:
