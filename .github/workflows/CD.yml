@@ -17,7 +17,7 @@ on:
 jobs:
 
   deploy:
-    runs-on: linux-latest
+    runs-on: windows-latest
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -28,7 +28,7 @@ jobs:
 
     - name: Call GH API
       run: |
-         res = $(curl --location 'https://api.github.com/repos/selvan123/app-service-web-dotnet-get-started/actions/artifacts')
+         res = $(curl --location "https://api.github.com/repos/selvan123/app-service-web-dotnet-get-started/actions/artifacts")
          echo $res
          
     - name: 'Download artifact'
