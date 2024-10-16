@@ -27,7 +27,7 @@ jobs:
           $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
           $headers.Add("Accept", "application/vnd.github+json")
           $headers.Add("X-GitHub-Api-Version", "2022-11-28")
-          $headers.Add("Authorization", "${{ secrets.GHToken }}"")
+          $headers.Add("Authorization", '${{ secrets.GHToken }}'")
 
           $response = Invoke-RestMethod 'https://api.github.com/repos/selvan123/app-service-web-dotnet-get-started/actions/artifacts'
           
