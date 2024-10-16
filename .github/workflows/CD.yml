@@ -18,19 +18,33 @@ jobs:
 
   deploy:
     runs-on: windows-latest
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    permissions:
-      id-token: write #This is required for requesting the JWT
+    
 
     steps:
 
     - name: Call GH API
       run: |
-         res = $(curl --location "https://api.github.com/repos/selvan123/app-service-web-dotnet-get-started/actions/artifacts")
-         echo $res
-         
+          $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+          $headers.Add("Accept", "application/vnd.github+json")
+          $headers.Add("X-GitHub-Api-Version", "2022-11-28")
+          $headers.Add("Authorization", ${{ secrets.GHToken }})
+
+          $response = Invoke-RestMethod -Uri "https://api.github.com/repos/selvan123/app-service-web-dotnet-get-started/actions/artifacts"
+          
+
+          foreach($res in $response.artifacts)
+          {
+              if ($res.name -eq ${{ inputs.artifactid }})
+              {
+                  Write-Host $res.name
+                  Write-Host $res.archive_download_url
+                  $filename = ${{ inputs.artifactid }}+".zip"
+                  Write-Host $filename
+                  $response = Invoke-WebRequest $res.archive_download_url -Method 'GET' -Headers $headers -OutFile "C:\Users\61058195\Downloads\$filename"
+                  Get-ChildItem
+              } 
+          }     
+
     - name: 'Download artifact'
       uses: actions/github-script@v6
       with:
