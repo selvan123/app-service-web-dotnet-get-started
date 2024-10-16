@@ -38,34 +38,4 @@ jobs:
         with:
           name: ASP-app-${{ github.run_id }}
           path: '/published/**'
-
-  deploy:
-    runs-on: windows-latest
-    needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    permissions:
-      id-token: write #This is required for requesting the JWT
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: ASP-app-${{ github.run_id }}
-      
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_56897CEBB03B4A47AFCD180C1B997B05 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B93AB93DE6B3495EB94EB77239535CF1 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6809EC9A16354D399C115A983F93884A }}
-
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: 'demo4selvan'
-          slot-name: 'Production'
-          package: .
-          
+ 
