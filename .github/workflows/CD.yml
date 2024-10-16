@@ -34,12 +34,11 @@ jobs:
 
           foreach($res in $response.artifacts)
           {
-            Write-Host $res.name
+            #Write-Host $res.name
               if ($res.name -eq '${{ inputs.artifactid }}')
               {
-                  Write-Host $res.name
-                  Write-Host $res.archive_download_url
-                  $ext = ".zip"
+                  #Write-Host $res.name
+                  Write-Host $res.archive_download_url                  
                   $filename = '${{ inputs.artifactid }}.zip'
                   Write-Host $filename
                   $response = Invoke-WebRequest $res.archive_download_url -Method 'GET' -Headers $headers -OutFile $filename
